@@ -11,6 +11,7 @@
         <h1>LITReview</h1>
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">Se déconnecter</a>
+            <a href="{% url 'password_change' %}">Modifier le mot de passe</a>
         {% endif %}
     </div>
     <div class="main">

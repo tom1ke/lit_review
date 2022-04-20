@@ -32,6 +32,12 @@ urlpatterns = [
         redirect_authenticated_user=True),
          name='login'),
     path('lougout/', LogoutView.as_view(), name='logout'),
+    path('password_change/', PasswordChangeView.as_view(
+        template_name='authentication/password_change.html',),
+         name='password_change'),
+    path('password_change_done/', PasswordChangeDoneView.as_view(
+        template_name='authentication/password_change_done.html'),
+         name='password_change_done'),
     path('home/', reviews.views.home, name='home'),
 ]
 
