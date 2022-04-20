@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils.decorators import method_decorator
 
-# Create your views here.
+
+@login_required
+def home(request):
+    return render(request,
+                  template_name='reviews/home.html',)

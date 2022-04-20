@@ -9,6 +9,10 @@
 <body>
     <div class="topbar">
         <h1>LITReview</h1>
+        <a href="{% url 'logout' %}">Se déconnecter</a>
+    </div>
+    <div class="main">
+        {% block content %}{% endblock content %}
     </div>
 </body>
 </html>
