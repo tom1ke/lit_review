@@ -2,5 +2,16 @@
 {% block content %}
 
 <h2>Home</h2>
+<div class="content">
+    {% for ticket in tickets %}
+        <div class="post">
+            <h3>{{ ticket.title }}</h3>
+            <p>{{ ticket.description }}</p>
+            <img src="{{ ticket.image.image.url }}" alt="">
+            <p>{{ ticket.user }}</p>
+            <p>{{ ticket.time_created }}</p>
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock content %}

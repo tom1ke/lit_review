@@ -39,6 +39,9 @@ urlpatterns = [
         template_name='authentication/password_change_done.html'),
          name='password_change_done'),
     path('home/', reviews.views.home, name='home'),
+    path('create_ticket/', reviews.views.TicketCreation.as_view(
+        template_name='reviews/create_ticket.html'),
+         name='create_ticket'),
 ]
 
 if settings.DEBUG:
