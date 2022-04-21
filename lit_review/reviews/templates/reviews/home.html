@@ -10,6 +10,7 @@
             <img src="{{ ticket.image.image.url }}" alt="">
             <p>{{ ticket.user }}</p>
             <p>{{ ticket.time_created }}</p>
+            <a href="{% url 'edit_ticket' %}">Éditer</a>
         </div>
     {% endfor %}
 </div>

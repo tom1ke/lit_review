@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>Éditer le ticket</h2>
+    <form action="", method="post">
+        {{ edit_form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Sauvegarder</button>
+    </form>
+    <h3>Supprimer le ticket</h3>
+    <form action="", method="post">
+        {{ delete_form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Supprimer</button>
+    </form>
+    
+{% endblock content %}

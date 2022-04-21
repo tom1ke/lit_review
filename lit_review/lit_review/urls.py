@@ -42,6 +42,7 @@ urlpatterns = [
     path('create_ticket/', reviews.views.TicketCreation.as_view(
         template_name='reviews/create_ticket.html'),
          name='create_ticket'),
+    path('edit_ticket/', reviews.views.TicketEdit.as_view(), name='edit_ticket'),
 ]
 
 if settings.DEBUG:
