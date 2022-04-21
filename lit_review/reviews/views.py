@@ -38,7 +38,7 @@ class TicketEdit(View):
     template_name = 'reviews/edit_ticket.html'
     
     def get(self, request, ticket_id):
-        blog = get_object_or_404(models.Ticket, id=ticket_id)
+        get_object_or_404(models.Ticket, id=ticket_id)
         edit_form = forms.TicketForm()
         delete_form = forms.DeleteTicketForm()
         return render(request, self.template_name,
@@ -49,7 +49,7 @@ class TicketEdit(View):
         edit_form = forms.TicketForm(instance=ticket)
         delete_form = forms.DeleteTicketForm()
         if 'edit_ticket' in request.POST:
-            edit_form = forms.TicketForm(request.POST, instance=ticket)
+            edit_form = forms.TicketForm(request.POST, request.FILES, instance=ticket)
             if edit_form.is_valid():
                 edit_form.save()
                 return redirect('home')
