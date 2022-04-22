@@ -1,18 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Home</h2>
-<div class="content">
-    {% for ticket in tickets %}
-        <div class="post">
-            <h3>{{ ticket.title }}</h3>
-            <p>{{ ticket.description }}</p>
-            <img src="{{ ticket.image.url }}" alt="">
-            <p>{{ ticket.user }}</p>
-            <p>{{ ticket.time_created }}</p>
-            <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+    <h2>Votre flux</h2>
+        <div class="create_content">
+            <a href="{% url 'create_ticket' %}">Demander une critique</a>
+            <a href="{% url 'create_review' %}">Créer une critique</a>
         </div>
-    {% endfor %}
-</div>
+        <div class="content">
+            {% for ticket in tickets %}
+                <div class="post">
+                    <h3>{{ ticket.title }}</h3>
+                    <p>{{ ticket.description }}</p>
+                    <img src="{{ ticket.image.url }}" alt="">
+                    <p>{{ ticket.user }}</p>
+                    <p>{{ ticket.time_created }}</p>
+                    <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+                </div>
+            {% endfor %}
+            {% for review in reviews %}
+                <div class="post">
+                    <h3>{{ review.headline }}</h3>
+                    <p>{{ review.body }}</p>
+                    <p>{{ review.user }}</p>
+                    <p>{{ review.time_created }}</p>
+                    <a href="">Éditer</a>
+                </div>
+            {% endfor %}
+        </div>
 
 {% endblock content %}

@@ -9,9 +9,10 @@ from . import forms, models
 @login_required
 def home(request):
     tickets = models.Ticket.objects.all()
+    reviews = models.Review.objects.all()
     return render(request,
                   template_name='reviews/home.html',
-                  context={'tickets': tickets})
+                  context={'tickets': tickets, 'reviews': reviews})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -61,3 +62,30 @@ class TicketEdit(View):
         return render(request, self.template_name,
                       context={'edit_form': edit_form, 'delete_form': delete_form})
 
+
+@method_decorator(login_required, name='dispatch')
+class ReviewNewCreation(View):
+    template_name = 'reviews/create_new_review.html'
+    ticket_form_class = forms.TicketForm
+    review_form_class = forms.ReviewForm
+
+    def get(self, request):
+        ticket_form = self.ticket_form_class()
+        review_form = self.review_form_class()
+        return render(request, self.template_name,
+                      context={'ticket_form': ticket_form, 'review_form': review_form})
+
+    def post(self, request):
+        ticket_form = self.ticket_form_class(request.POST, request.FILES)
+        review_form = self.review_form_class(request.POST)
+        if all([ticket_form.is_valid(), review_form.is_valid()]):
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
+            return redirect('home')
+        return render(request, self.template_name,
+                      context={'ticket_form': ticket_form, 'review_form': review_form})
