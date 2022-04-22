@@ -89,3 +89,27 @@ class ReviewNewCreation(View):
             return redirect('home')
         return render(request, self.template_name,
                       context={'ticket_form': ticket_form, 'review_form': review_form})
+
+
+@method_decorator(login_required, name='dispatch')
+class ReviewReplyCreation(View):
+    template_name = 'reviews/create_reply_review.html'
+    form_class = forms.ReviewForm
+
+    def get(self, request, ticket_id):
+        ticket = get_object_or_404(models.Ticket, id=ticket_id)
+        form = self.form_class()
+        return render(request, self.template_name,
+                      context={'ticket': ticket, 'form': form})
+
+    def post(self, request, ticket_id):
+        ticket = get_object_or_404(models.Ticket, id=ticket_id)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
+            return redirect('home')
+        return render(request, self.template_name,
+                      context={'ticket': ticket, 'form': form})

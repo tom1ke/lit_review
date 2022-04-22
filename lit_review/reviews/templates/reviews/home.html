@@ -4,7 +4,7 @@
     <h2>Votre flux</h2>
         <div class="create_content">
             <a href="{% url 'create_ticket' %}">Demander une critique</a>
-            <a href="{% url 'create_review' %}">Créer une critique</a>
+            <a href="{% url 'create_new_review' %}">Créer une critique</a>
         </div>
         <div class="content">
             {% for ticket in tickets %}
@@ -15,6 +15,7 @@
                     <p>{{ ticket.user }}</p>
                     <p>{{ ticket.time_created }}</p>
                     <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+                    <a href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
                 </div>
             {% endfor %}
             {% for review in reviews %}
@@ -23,6 +24,10 @@
                     <p>{{ review.body }}</p>
                     <p>{{ review.user }}</p>
                     <p>{{ review.time_created }}</p>
+                    <p>En réponse à :</p>
+                    <p>{{ review.ticket.user }} le {{ review.ticket.time_created }}</p>
+                    <p>{{ review.ticket.title }}</p>
+                    <img src="{{ review.ticket.image.url }}">
                     <a href="">Éditer</a>
                 </div>
             {% endfor %}
