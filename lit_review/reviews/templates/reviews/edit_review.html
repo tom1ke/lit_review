@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h2>Éditer le ticket</h2>
-    <form action="", method="post", enctype="multipart/form-data">
+    <h2>Éditer la critique</h2>
+    <form action="", method="post">
         {{ edit_form.as_p }}
         {% csrf_token %}
         <button type="submit">Sauvegarder</button>
     </form>
-    <h2>Supprimer le ticket</h2>
+    <h2>Supprimer la critique</h2>
     <form action="", method="post">
         {{ delete_form.as_p }}
         {% csrf_token %}
         <button type="submit">Supprimer</button>
     </form>
-    
+
 {% endblock content %}

@@ -19,11 +19,11 @@ def home(request):
 class TicketCreation(View):
     template_name = 'reviews/create_ticket.html'
     form_class = forms.TicketForm
-    
+
     def get(self, request):
         form = self.form_class()
         return render(request, self.template_name, context={'form': form})
-    
+
     def post(self, request):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
@@ -37,14 +37,14 @@ class TicketCreation(View):
 @method_decorator(login_required, name='dispatch')
 class TicketEdit(View):
     template_name = 'reviews/edit_ticket.html'
-    
+
     def get(self, request, ticket_id):
         get_object_or_404(models.Ticket, id=ticket_id)
         edit_form = forms.TicketForm()
         delete_form = forms.DeleteTicketForm()
         return render(request, self.template_name,
                       context={'edit_form': edit_form, 'delete_form': delete_form})
-    
+
     def post(self, request, ticket_id):
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
         edit_form = forms.TicketForm(instance=ticket)
@@ -113,3 +113,32 @@ class ReviewReplyCreation(View):
             return redirect('home')
         return render(request, self.template_name,
                       context={'ticket': ticket, 'form': form})
+
+
+@method_decorator(login_required, name='dispatch')
+class ReviewEdit(View):
+    template_name = 'reviews/edit_review.html'
+
+    def get(self, request, review_id):
+        get_object_or_404(models.Review, id=review_id)
+        edit_form = forms.ReviewForm()
+        delete_form = forms.DeleteReviewForm()
+        return render(request, self.template_name,
+                      context={'edit_form': edit_form, 'delete_form': delete_form})
+
+    def post(self, request, review_id):
+        review = get_object_or_404(models.Review, id=review_id)
+        edit_form = forms.ReviewForm(instance=review)
+        delete_form = forms.DeleteReviewForm()
+        if 'edit_review' in request.POST:
+            edit_form = forms.ReviewForm(request.POST, instance=review)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect('home')
+        if 'delete_review' in request.POST:
+            delete_form = forms.DeleteReviewForm(request.POST)
+            if delete_form.is_valid():
+                review.delete()
+                return redirect('home')
+        return render(request, self.template_name,
+                      context={'edit_form': edit_form, 'delete_form': delete_form})

@@ -21,6 +21,7 @@
             {% for review in reviews %}
                 <div class="post">
                     <h3>{{ review.headline }}</h3>
+                    <p>{{ review.rating }}</p>
                     <p>{{ review.body }}</p>
                     <p>{{ review.user }}</p>
                     <p>{{ review.time_created }}</p>
@@ -28,7 +29,7 @@
                     <p>{{ review.ticket.user }} le {{ review.ticket.time_created }}</p>
                     <p>{{ review.ticket.title }}</p>
                     <img src="{{ review.ticket.image.url }}">
-                    <a href="">Éditer</a>
+                    <a href="{% url 'edit_review' review.id %}">Éditer</a>
                 </div>
             {% endfor %}
         </div>
