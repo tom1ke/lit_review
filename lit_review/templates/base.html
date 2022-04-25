@@ -12,7 +12,7 @@
         <h1>LITReview</h1>
         {% if user.is_authenticated %}
             <a href="{% url 'home' %}">Flux</a>
-            <a href="">Publications</a>
+            <a href="{% url 'publications' %}">Publications</a>
             <a href="">Abonnements</a>
             <a href="{% url 'logout' %}">Se déconnecter</a>
             <a href="{% url 'password_change' %}">Modifier le mot de passe</a>

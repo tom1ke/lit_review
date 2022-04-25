@@ -19,6 +19,16 @@ def home(request):
                   context={'tickets_and_reviews': tickets_and_reviews})
 
 
+@login_required
+def publications(request):
+    tickets = models.Ticket.objects.filter(user_id=request.user.id)
+    reviews = models.Review.objects.filter(user_id=request.user.id)
+    tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda instance: instance.time_created, reverse=True)
+    return render(request,
+                  template_name='reviews/publications.html',
+                  context={'tickets_and_reviews': tickets_and_reviews})
+
+
 @method_decorator(login_required, name='dispatch')
 class TicketCreation(View):
     template_name = 'reviews/create_ticket.html'
