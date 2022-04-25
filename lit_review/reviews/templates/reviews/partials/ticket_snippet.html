@@ -1,0 +1,13 @@
+{% load reviews_extras %}
+
+<div class="post">
+    <h3>{{ ticket.title }}</h3>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" alt="">
+    {% endif %}
+    <p>Publié par {% get_user_display ticket.user %}</p>
+    <p>{{ ticket.time_created|time_created_display }}</p>
+    <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+    <a href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
+</div>

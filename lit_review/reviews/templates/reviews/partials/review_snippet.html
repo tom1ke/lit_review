@@ -1,0 +1,16 @@
+{% load reviews_extras %}
+
+<div class="post">
+    <h3>{{ review.headline }}</h3>
+    <p>{{ review.rating }}</p>
+    <p>{{ review.body }}</p>
+    <p>{{ review.user }}</p>
+    <p>{{ review.time_created|time_created_display }}</p>
+    <p>En réponse à :</p>
+    <p>{{ review.ticket.user }} le {{ review.ticket.time_created }}</p>
+    <p>{{ review.ticket.title }}</p>
+    {% if review.ticket.image %}
+        <img src="{{ review.ticket.image.url }}">
+    {% endif %}
+    <a href="{% url 'edit_review' review.id %}">Éditer</a>
+</div>
