@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
@@ -10,9 +12,10 @@ from . import forms, models
 def home(request):
     tickets = models.Ticket.objects.all()
     reviews = models.Review.objects.all()
+    tickets_and_reviews = chain(tickets, reviews)
     return render(request,
                   template_name='reviews/home.html',
-                  context={'tickets': tickets, 'reviews': reviews})
+                  context={'tickets_and_reviews': tickets_and_reviews})
 
 
 @method_decorator(login_required, name='dispatch')
