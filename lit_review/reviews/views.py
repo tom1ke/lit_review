@@ -12,7 +12,7 @@ from . import forms, models
 def home(request):
     tickets = models.Ticket.objects.all()
     reviews = models.Review.objects.all()
-    tickets_and_reviews = chain(tickets, reviews)
+    tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda instance: instance.time_created, reverse=True)
     return render(request,
                   template_name='reviews/home.html',
                   context={'tickets_and_reviews': tickets_and_reviews})
