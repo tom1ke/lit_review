@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
+{% load reviews_extras %}
 {% block content %}
 
     <h2>Créer une critique</h2>
     <p>Vous répondez à :</p>
-    <p>{{ ticket.title }}</p>
-    <p>{{ ticket.description }}</p>
-    <img src="{{ ticket.image.url }}">
+    {% include 'reviews/partials/ticket_snippet.html' %}
     <form action="" method="post">
         {{ form.as_p }}
         {% csrf_token %}
