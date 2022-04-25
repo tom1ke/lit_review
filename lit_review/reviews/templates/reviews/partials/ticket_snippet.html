@@ -8,6 +8,8 @@
     {% endif %}
     <p>Publié par {% get_user_display ticket.user %}</p>
     <p>{{ ticket.time_created|time_created_display }}</p>
-    <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+    {% if ticket.user == user %}
+        <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+    {% endif %}
     <a href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
 </div>

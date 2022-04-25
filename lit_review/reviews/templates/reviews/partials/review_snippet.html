@@ -12,5 +12,7 @@
     {% if review.ticket.image %}
         <img src="{{ review.ticket.image.url }}">
     {% endif %}
-    <a href="{% url 'edit_review' review.id %}">Éditer</a>
+    {% if review.user == user %}
+        <a href="{% url 'edit_review' review.id %}">Éditer</a>
+    {% endif %}
 </div>
