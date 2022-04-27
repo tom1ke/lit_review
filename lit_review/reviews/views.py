@@ -1,6 +1,6 @@
 from itertools import chain
 
-from django.http import Http404
+from django.http import HttpResponseNotAllowed
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
@@ -55,7 +55,7 @@ class TicketEdit(View):
     def get(self, request, ticket_id):
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
         if ticket.user != request.user:
-            raise Http404('Vous n\'avez pas la permission de modifier ce contenu.')
+            raise HttpResponseNotAllowed('Vous n\'avez pas la permission de modifier ce contenu.')
         edit_form = forms.TicketForm()
         delete_form = forms.DeleteTicketForm()
         return render(request, self.template_name,
@@ -138,7 +138,7 @@ class ReviewEdit(View):
     def get(self, request, review_id):
         review = get_object_or_404(models.Review, id=review_id)
         if review.user != request.user:
-            raise Http404('Vous n\'avez pas la permission de modifier ce contenu.')
+            raise HttpResponseNotAllowed('Vous n\'avez pas la permission de modifier ce contenu.')
         edit_form = forms.ReviewForm()
         delete_form = forms.DeleteReviewForm()
         return render(request, self.template_name,
