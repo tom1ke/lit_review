@@ -4,8 +4,8 @@
 
     <h2>Votre flux</h2>
         <div class="create_content">
-            <a href="{% url 'create_ticket' %}">Demander une critique</a>
-            <a href="{% url 'create_new_review' %}">Créer une critique</a>
+            <a class="button" href="{% url 'create_ticket' %}">Demander une critique</a>
+            <a class="button" href="{% url 'create_new_review' %}">Créer une critique</a>
         </div>
         <div class="content">
             {% for instance in tickets_and_reviews %}

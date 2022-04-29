@@ -9,7 +9,7 @@
     <p>Publié par {% get_user_display ticket.user %}</p>
     <p>{{ ticket.time_created|time_created_display }}</p>
     {% if ticket.user == user %}
-        <a href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
+        <a class="button" href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
     {% endif %}
-    <a href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
+    <a class="button" href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
 </div>
