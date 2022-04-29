@@ -1,6 +1,7 @@
 from itertools import chain
 
-from django.http import HttpResponseNotAllowed
+from django.db import IntegrityError
+from django.http import Http404, HttpResponseNotAllowed
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
@@ -160,3 +161,22 @@ class ReviewEdit(View):
                 return redirect('home')
         return render(request, self.template_name,
                       context={'edit_form': edit_form, 'delete_form': delete_form})
+
+
+@method_decorator(login_required, name='dispatch')
+class FollowUser(View):
+    template_name = 'reviews/follow_user.html'
+
+    def get(self, request):
+        form = forms.FollowUserForm()
+        followed_users = models.UserFollows.objects.filter(user_id=request.user.id)
+        return render(request, self.template_name, context={'form': form, 'followed_users': followed_users})
+
+    def post(self, request):
+        form = forms.FollowUserForm(request.POST)
+        if form.is_valid():
+            follow = form.save(commit=False)
+            follow.user = request.user
+            follow.save()
+            return redirect('home')
+        return render(request, self.template_name, context={'form': form})
