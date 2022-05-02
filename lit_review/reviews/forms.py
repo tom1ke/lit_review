@@ -1,5 +1,7 @@
+import django.contrib.admin
 from django import forms
 from django.contrib.auth import get_user_model
+
 
 from . import models
 
@@ -21,6 +23,17 @@ class DeleteTicketForm(forms.Form):
 
 class ReviewForm(forms.ModelForm):
     edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+    CHOICES = (
+        ('0', 0),
+        ('1', 1),
+        ('2', 2),
+        ('3', 3),
+        ('4', 4),
+        ('5', 5),
+    )
+
+    rating = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES, label='Note')
 
     class Meta:
         model = models.Review

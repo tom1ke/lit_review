@@ -15,7 +15,6 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    justify-items: flex-start;
     align-items: center;
     margin: 70px;
 }
