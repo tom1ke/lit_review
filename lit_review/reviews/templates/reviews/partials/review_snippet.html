@@ -2,7 +2,7 @@
 
 <div class="post">
     <h3>{{ review.headline }}</h3>
-    <p>{{ review.rating }}</p>
+    {% include 'reviews/partials/rating_snippet.html' %}
     <p>{{ review.body }}</p>
     <p>Publié par {% get_user_display review.user %}</p>
     <p>{{ review.time_created|time_created_display }}</p>

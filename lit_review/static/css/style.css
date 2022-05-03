@@ -60,7 +60,7 @@ h2 {
     margin-bottom: 50px;
 }
 
-.button {
+button, .button {
     font-size: 16px;
     background-color: gainsboro;
     padding: 6px;
@@ -88,4 +88,19 @@ h2 {
     border: 1px solid darkgrey;
     padding: 40px;
     margin: 40px;
+}
+
+#subs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#subs p {
+    margin: 5px;
+}
+
+.star-rating {
+    width: 100px;
+    height: auto;
 }

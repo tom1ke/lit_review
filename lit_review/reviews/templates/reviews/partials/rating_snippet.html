@@ -1,0 +1,13 @@
+{% if review.rating == 0 %}
+    <img class="star-rating" src="/static/star_rating/stars_0.png">
+{% elif review.rating == 1 %}
+    <img class="star-rating" src="/static/star_rating/stars_1.png">
+{% elif review.rating == 2 %}
+    <img class="star-rating" src="/static/star_rating/stars_2.png">
+{% elif review.rating == 3 %}
+    <img class="star-rating" src="/static/star_rating/stars_3.png">
+{% elif review.rating == 4 %}
+    <img class="star-rating" src="/static/star_rating/stars_4.png">
+{% elif review.rating == 5 %}
+    <img class="star-rating" src="/static/star_rating/stars_5.png">
+{% endif %}
