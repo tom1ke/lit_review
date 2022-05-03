@@ -1,6 +1,7 @@
 from itertools import chain
 
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import Http404, HttpResponseNotAllowed
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
@@ -115,6 +116,10 @@ class ReviewReplyCreation(View):
 
     def get(self, request, ticket_id):
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
+        reviews = models.Review.objects.all()
+        for review in reviews:
+            if ticket_id == review.ticket.id:
+                raise HttpResponseNotAllowed('Cette demande a déjà reçu une réponse.')
         form = self.form_class()
         return render(request, self.template_name,
                       context={'ticket': ticket, 'form': form})
