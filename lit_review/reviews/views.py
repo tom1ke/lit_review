@@ -25,7 +25,7 @@ def home(request):
         return render(request,
                       template_name='reviews/home.html',
                       context={'tickets_and_reviews': tickets_and_reviews})
-
+    return render(request, template_name='reviews/home.html')
 
 @login_required
 def publications(request):
