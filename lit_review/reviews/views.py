@@ -188,6 +188,8 @@ class FollowUser(View):
         if form.is_valid():
             follow = form.save(commit=False)
             follow.user = request.user
+            if follow.followed_user == request.user:
+                raise HttpResponseNotAllowed('Vous ne pouvez pas vous abonner à vous-même.')
             follow.save()
             return redirect('home')
         return render(request, self.template_name, context={'form': form})

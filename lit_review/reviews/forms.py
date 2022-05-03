@@ -49,4 +49,4 @@ class FollowUserForm(forms.ModelForm):
     class Meta:
         model = models.UserFollows
         fields = ['followed_user']
-        labels = {'followed_user': 'Utilisateur'}
+        labels = {'followed_user': 'Suivre'}

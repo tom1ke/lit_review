@@ -8,8 +8,10 @@
         <button type="submit">S'abonner</button>
     </form>
     <h2>Vos abonnements</h2>
-    {% for user in followed_users %}
-        <p>{{ user.followed_user }}</p>
-    {% endfor %}
+    <div id="subs">
+        {% for user in followed_users %}
+            <p>{{ user.followed_user }}</p>
+        {% endfor %}
+    </div>
 
 {% endblock content %}
