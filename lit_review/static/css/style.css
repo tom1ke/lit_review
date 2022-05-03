@@ -50,6 +50,10 @@ h2 {
     text-align: center;
 }
 
+#id_rating div {
+    display: inline;
+}
+
 .create_content {
     text-align: center;
     margin-top: 50px;
@@ -57,6 +61,7 @@ h2 {
 }
 
 .button {
+    font-size: 16px;
     background-color: gainsboro;
     padding: 6px;
     border-radius: 5px;
