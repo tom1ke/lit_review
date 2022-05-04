@@ -6,8 +6,10 @@
     {% if ticket.image %}
         <img src="{{ ticket.image.url }}" alt="">
     {% endif %}
-    <p>Publié par {% get_user_display ticket.user %}</p>
-    <p>{{ ticket.time_created|time_created_display }}</p>
+    <div class="infos">
+        <p>Publié par {% get_user_display ticket.user %}</p>
+        <p>{{ ticket.time_created|time_created_display }}</p>
+    </div>
     {% if ticket.user == user %}
         <a class="button" href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
     {% endif %}

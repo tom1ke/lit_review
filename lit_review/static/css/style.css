@@ -104,3 +104,8 @@ button, .button {
     width: 100px;
     height: auto;
 }
+
+.infos {
+    font-size: smaller;
+    font-style: italic;
+}

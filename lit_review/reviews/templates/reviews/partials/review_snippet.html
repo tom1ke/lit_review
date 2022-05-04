@@ -4,11 +4,13 @@
     <h3>{{ review.headline }}</h3>
     {% include 'reviews/partials/rating_snippet.html' %}
     <p>{{ review.body }}</p>
-    <p>Publié par {% get_user_display review.user %}</p>
-    <p>{{ review.time_created|time_created_display }}</p>
+    <div class="infos">
+        <p>Publié par {% get_user_display review.user %}</p>
+        <p>{{ review.time_created|time_created_display }}</p>
+    </div>
     <div class="original-post">
         <p>En réponse à :</p>
-        <p>{% get_user_display review.ticket.user %} le {{ review.ticket.time_created }}</p>
+        <p class="infos">{% get_user_display review.ticket.user %} le {{ review.ticket.time_created }}</p>
         <p>{{ review.ticket.title }}</p>
         {% if review.ticket.image %}
             <img src="{{ review.ticket.image.url }}">
