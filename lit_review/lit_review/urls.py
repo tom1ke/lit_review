@@ -20,6 +20,7 @@ from django.shortcuts import redirect
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 import authentication.views
+import authentication.forms
 import reviews.views
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
         template_name='authentication/signup.html'),
          name='signup'),
     path('', LoginView.as_view(
+        authentication_form=authentication.forms.CustomLoginForm,
         template_name='authentication/login.html',
         redirect_authenticated_user=True),
          name='login'),

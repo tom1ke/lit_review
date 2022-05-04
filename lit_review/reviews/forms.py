@@ -8,7 +8,16 @@ from . import models
 User = get_user_model()
 
 
-class TicketForm(forms.ModelForm):
+class CustomModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomModelForm, self).__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            self.fields[field_name].widget.attrs['placeholder'] = field.label
+            self.fields[field_name].label = ''
+
+
+class TicketForm(CustomModelForm):
     edit_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     class Meta:
@@ -21,7 +30,7 @@ class DeleteTicketForm(forms.Form):
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 
-class ReviewForm(forms.ModelForm):
+class ReviewForm(CustomModelForm):
     edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     CHOICES = (
@@ -45,8 +54,10 @@ class DeleteReviewForm(forms.Form):
     delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 
-class FollowUserForm(forms.ModelForm):
-    class Meta:
-        model = models.UserFollows
-        fields = ['followed_user']
-        labels = {'followed_user': 'Suivre'}
+class FollowUserForm(forms.Form):
+    follow_user = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    follow = forms.CharField(max_length=100, label='Suivre')
+
+
+class UnfollowUserForm(forms.Form):
+    unfollow_user = forms.BooleanField(widget=forms.HiddenInput, initial=True)
