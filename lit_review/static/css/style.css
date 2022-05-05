@@ -19,6 +19,21 @@ form {
     margin: 70px;
 }
 
+.followed {
+    display: flex;
+    flex-direction: row;
+}
+
+#unfollow_form {
+    display: inline;
+    margin: initial;
+}
+
+#unfollow_button {
+    margin-left: 50px;
+    font-size: smaller;
+}
+
 input, textarea {
     width: 500px;
 }
