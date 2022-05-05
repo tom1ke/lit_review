@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.http import Http404, HttpResponseNotAllowed
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 
@@ -178,17 +179,29 @@ class FollowUser(View):
     template_name = 'reviews/follow_user.html'
 
     def get(self, request):
-        form = forms.FollowUserForm()
+        follow_form = forms.FollowUserForm()
+        unfollow_form = forms.UnfollowUserForm()
         followed_users = models.UserFollows.objects.filter(user_id=request.user.id)
-        return render(request, self.template_name, context={'form': form, 'followed_users': followed_users})
+        return render(request, self.template_name,
+                      context={'follow_form': follow_form,
+                               'unfollow_form': unfollow_form,
+                               'followed_users': followed_users})
 
     def post(self, request):
-        form = forms.FollowUserForm(request.POST)
-        if form.is_valid():
-            follow = form.save(commit=False)
-            follow.user = request.user
-            if follow.followed_user == request.user:
+        follow_form = forms.FollowUserForm(request.POST)
+        unfollow_form = forms.UnfollowUserForm(request.POST)
+        following = models.UserFollows
+        user_model = get_user_model()
+        users = user_model.objects.all()
+        if 'follow_user' in request.POST and follow_form.is_valid():
+            if follow_form.cleaned_data == request.user:
                 raise HttpResponseNotAllowed('Vous ne pouvez pas vous abonner à vous-même.')
-            follow.save()
-            return redirect('home')
-        return render(request, self.template_name, context={'form': form})
+            for user in users:
+                if follow_form.cleaned_data == user.username:
+                    following.user = request.user
+                    following.followed_user = follow_form.cleaned_data
+            return redirect('follow')
+        if 'unfollow_user' in request.POST and unfollow_form.is_valid():
+            pass
+        return render(request, self.template_name,
+                      context={'follow_form': follow_form, 'unfollow_form': unfollow_form})
