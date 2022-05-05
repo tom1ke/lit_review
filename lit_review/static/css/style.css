@@ -87,6 +87,8 @@ button, .button {
 
 .post {
     border: 1px solid darkgrey;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
     min-width: 800px;
     padding: 40px;
     margin: 40px;
@@ -94,6 +96,8 @@ button, .button {
 
 .original-post {
     border: 1px solid darkgrey;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
     padding: 40px;
     margin: 40px;
 }
@@ -121,4 +125,8 @@ button, .button {
 .infos {
     font-size: smaller;
     font-style: italic;
+}
+
+img {
+    border-radius: 5px;
 }

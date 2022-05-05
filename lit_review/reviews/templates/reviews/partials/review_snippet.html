@@ -10,7 +10,10 @@
     </div>
     <div class="original-post">
         <p>En réponse à :</p>
-        <p class="infos">{% get_user_display review.ticket.user %} le {{ review.ticket.time_created }}</p>
+        <div class="infos">
+            <p>{% get_user_display review.ticket.user %}</p>
+            <p>{{ review.ticket.time_created|time_created_display }}</p>
+        </div>
         <p>{{ review.ticket.title }}</p>
         {% if review.ticket.image %}
             <img src="{{ review.ticket.image.url }}">
