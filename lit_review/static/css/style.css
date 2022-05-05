@@ -98,6 +98,11 @@ button, .button {
     margin: 40px;
 }
 
+.reply-to {
+    display: flex;
+    justify-content: center;
+}
+
 #subs {
     display: flex;
     flex-direction: column;
