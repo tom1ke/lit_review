@@ -13,19 +13,17 @@ from . import forms, models
 
 @login_required
 def home(request):
+    tickets = models.Ticket.objects.filter(user_id=request.user.id)
+    reviews = models.Review.objects.filter(user_id=request.user.id)
     followings = models.UserFollows.objects.filter(user=request.user)
     for following in followings:
-        tickets = models.Ticket.objects.filter(
-            Q(user_id=following.followed_user) | Q(user_id=request.user)
-        )
-        reviews = models.Review.objects.filter(
-            Q(user_id=following.followed_user) | Q(user_id=request.user)
-        )
-        tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda instance: instance.time_created, reverse=True)
-        return render(request,
-                      template_name='reviews/home.html',
-                      context={'tickets_and_reviews': tickets_and_reviews})
-    return render(request, template_name='reviews/home.html')
+        tickets = chain(tickets, models.Ticket.objects.filter(user_id=following.followed_user))
+        reviews = chain(reviews, models.Review.objects.filter(user_id=following.followed_user))
+    tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda instance: instance.time_created, reverse=True)
+    return render(request,
+                  template_name='reviews/home.html',
+                  context={'tickets_and_reviews': tickets_and_reviews})
+
 
 @login_required
 def publications(request):
