@@ -14,7 +14,8 @@ from . import forms, models
 @login_required
 def home(request):
     tickets = models.Ticket.objects.filter(user_id=request.user.id)
-    reviews = models.Review.objects.filter(user_id=request.user.id)
+    reviews = models.Review.objects.filter(
+        Q(user_id=request.user.id) | Q(ticket__in=tickets))
     followings = models.UserFollows.objects.filter(user=request.user)
     for following in followings:
         tickets = chain(tickets, models.Ticket.objects.filter(user_id=following.followed_user))
