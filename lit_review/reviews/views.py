@@ -182,24 +182,28 @@ class FollowUser(View):
         follow_form = forms.FollowUserForm()
         unfollow_form = forms.UnfollowUserForm()
         followed_users = models.UserFollows.objects.filter(user_id=request.user.id)
+        followers = models.UserFollows.objects.filter(followed_user_id=request.user.id)
         return render(request, self.template_name,
                       context={'follow_form': follow_form,
                                'unfollow_form': unfollow_form,
-                               'followed_users': followed_users})
+                               'followed_users': followed_users,
+                               'followers': followers})
 
     def post(self, request):
         follow_form = forms.FollowUserForm(request.POST)
         unfollow_form = forms.UnfollowUserForm(request.POST)
-        following = models.UserFollows
+        following = models.UserFollows()
         user_model = get_user_model()
         users = user_model.objects.all()
         if 'follow_user' in request.POST and follow_form.is_valid():
             if follow_form.cleaned_data == request.user:
                 raise HttpResponseNotAllowed('Vous ne pouvez pas vous abonner à vous-même.')
             for user in users:
-                if follow_form.cleaned_data == user.username:
+                follow = follow_form.cleaned_data['follow']
+                if follow == user.username:
                     following.user = request.user
-                    following.followed_user = follow_form.cleaned_data
+                    following.followed_user = user
+                    following.save()
             return redirect('follow')
         if 'unfollow_user' in request.POST and unfollow_form.is_valid():
             pass

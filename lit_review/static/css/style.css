@@ -22,6 +22,12 @@ form {
 .followed {
     display: flex;
     flex-direction: row;
+    margin-bottom: 50px;
+}
+
+#id_follow {
+    margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 #unfollow_form {

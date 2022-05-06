@@ -3,12 +3,12 @@
 
     <h2>S'abonner à un utilisateur</h2>
     <form action="" method="post">
-        {{ form.as_p }}
+        {{ follow_form }}
         {% csrf_token %}
         <button type="submit">S'abonner</button>
     </form>
-    <h2>Vos abonnements</h2>
     <div id="subs">
+        <h2>Vos abonnements</h2>
         {% for user in followed_users %}
             <div class="followed">
                 <p>{{ user.followed_user }}</p>
@@ -18,7 +18,10 @@
                     <button id="unfollow_button" type="submit">Ne plus suivre</button>
                 </form>
             </div>
-            </p>
+        {% endfor %}
+        <h2>Abonnés</h2>
+        {% for user in followers %}
+            <p>{{ user.user }}</p>
         {% endfor %}
     </div>
 

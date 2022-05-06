@@ -14,7 +14,9 @@
             <p>{% get_user_display review.ticket.user %}</p>
             <p>{{ review.ticket.time_created|time_created_display }}</p>
         </div>
-        <p>{{ review.ticket.title }}</p>
+        <p>
+            <b>{{ review.ticket.title }}</b>
+        </p>
         {% if review.ticket.image %}
             <img src="{{ review.ticket.image.url }}">
         {% endif %}
