@@ -1,5 +1,6 @@
 from itertools import chain
 
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db.models import Q
 from django.http import Http404, HttpResponseNotAllowed
@@ -90,18 +91,16 @@ class TicketEdit(View):
 @method_decorator(login_required, name='dispatch')
 class ReviewNewCreation(View):
     template_name = 'reviews/create_new_review.html'
-    ticket_form_class = forms.TicketForm
-    review_form_class = forms.ReviewForm
 
     def get(self, request):
-        ticket_form = self.ticket_form_class()
-        review_form = self.review_form_class()
+        ticket_form = forms.TicketForm()
+        review_form = forms.ReviewForm()
         return render(request, self.template_name,
                       context={'ticket_form': ticket_form, 'review_form': review_form})
 
     def post(self, request):
-        ticket_form = self.ticket_form_class(request.POST, request.FILES)
-        review_form = self.review_form_class(request.POST)
+        ticket_form = forms.TicketForm(request.POST, request.FILES)
+        review_form = forms.ReviewForm(request.POST)
         if all([ticket_form.is_valid(), review_form.is_valid()]):
             ticket = ticket_form.save(commit=False)
             ticket.user = request.user
@@ -118,21 +117,16 @@ class ReviewNewCreation(View):
 @method_decorator(login_required, name='dispatch')
 class ReviewReplyCreation(View):
     template_name = 'reviews/create_reply_review.html'
-    form_class = forms.ReviewForm
 
     def get(self, request, ticket_id):
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
-        reviews = models.Review.objects.all()
-        for review in reviews:
-            if ticket_id == review.ticket.id:
-                raise HttpResponseNotAllowed('Cette demande a déjà reçu une réponse.')
-        form = self.form_class()
+        form = forms.ReviewForm()
         return render(request, self.template_name,
                       context={'ticket': ticket, 'form': form})
 
     def post(self, request, ticket_id):
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
-        form = self.form_class(request.POST)
+        form = forms.ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user

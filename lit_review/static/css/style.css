@@ -22,7 +22,7 @@ form {
 .followed {
     display: flex;
     flex-direction: row;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 
 #id_follow {

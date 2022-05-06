@@ -13,9 +13,5 @@
     {% if ticket.user == user %}
         <a class="button" href="{% url 'edit_ticket' ticket.id %}">Éditer</a>
     {% endif %}
-    {% for review in reviews %}
-        {% if ticket.id != review.ticket.id %}
-            <a class="button" href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
-        {% endif %}
-    {% endfor %}
+    <a class="button" href="{% url 'create_reply_review' ticket.id %}">Répondre</a>
 </div>
