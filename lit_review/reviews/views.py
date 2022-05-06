@@ -64,7 +64,7 @@ class TicketEdit(View):
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
         if ticket.user != request.user:
             raise HttpResponseNotAllowed('Vous n\'avez pas la permission de modifier ce contenu.')
-        edit_form = forms.TicketForm()
+        edit_form = forms.TicketForm(instance=ticket)
         delete_form = forms.DeleteTicketForm()
         return render(request, self.template_name,
                       context={'edit_form': edit_form, 'delete_form': delete_form})
@@ -151,7 +151,7 @@ class ReviewEdit(View):
         review = get_object_or_404(models.Review, id=review_id)
         if review.user != request.user:
             raise HttpResponseNotAllowed('Vous n\'avez pas la permission de modifier ce contenu.')
-        edit_form = forms.ReviewForm()
+        edit_form = forms.ReviewForm(instance=review)
         delete_form = forms.DeleteReviewForm()
         return render(request, self.template_name,
                       context={'edit_form': edit_form, 'delete_form': delete_form})
