@@ -196,10 +196,10 @@ class FollowUser(View):
         user_model = get_user_model()
         users = user_model.objects.all()
         if 'follow_user' in request.POST and follow_form.is_valid():
-            if follow_form.cleaned_data == request.user:
+            follow = follow_form.cleaned_data['follow']
+            if follow == request.user.username:
                 raise HttpResponseNotAllowed('Vous ne pouvez pas vous abonner à vous-même.')
             for user in users:
-                follow = follow_form.cleaned_data['follow']
                 if follow == user.username:
                     following.user = request.user
                     following.followed_user = user
