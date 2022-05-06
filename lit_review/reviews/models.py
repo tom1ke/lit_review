@@ -14,6 +14,9 @@ class Ticket(models.Model):
 
     IMAGE_MAX_SIZE = (200, 350)
 
+    def __str__(self):
+        return f'{self.title}'
+
     def resize_image(self):
         image = Image.open(self.image)
         image.thumbnail(self.IMAGE_MAX_SIZE)
@@ -34,7 +37,10 @@ class Review(models.Model):
     headline = models.fields.CharField(max_length=128)
     body = models.fields.TextField(max_length=8192, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
-    
+
+    def __str__(self):
+        return f'{self.ticket.title}'
+
 
 class UserFollows(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL,
@@ -46,3 +52,6 @@ class UserFollows(models.Model):
     
     class Meta:
         unique_together = ('user', 'followed_user')
+
+    def __str__(self):
+        return f'{self.user} => {self.followed_user}'
