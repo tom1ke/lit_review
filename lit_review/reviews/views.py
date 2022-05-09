@@ -192,12 +192,18 @@ class FollowUser(View):
         if 'follow_user' in request.POST and follow_form.is_valid():
             follow = follow_form.cleaned_data['follow']
             if follow == request.user.username:
-                raise HttpResponseNotAllowed('Vous ne pouvez pas vous abonner à vous-même.')
+                raise ValidationError('Vous ne pouvez pas vous abonner à vous-même.')
+            usernames = [user.username for user in users]
+            if follow not in usernames:
+                raise ValidationError('Cet utilisateur n\'existe pas.')
             for user in users:
-                if follow == user.username:
-                    following.user = request.user
-                    following.followed_user = user
-                    following.save()
+                try:
+                    if follow == user.username:
+                        following.user = request.user
+                        following.followed_user = user
+                        following.save()
+                except IntegrityError as error:
+                    raise ValidationError('Vous suivez déjà cet utilisateur.') from error
             return redirect('follow')
         if 'unfollow_user' in request.POST and unfollow_form.is_valid():
             pass
