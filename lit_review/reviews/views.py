@@ -3,12 +3,13 @@ from itertools import chain
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db.models import Q
-from django.http import Http404, HttpResponseNotAllowed
+from django.http import HttpResponseNotAllowed
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 
 from . import forms, models
 
@@ -23,9 +24,12 @@ def home(request):
         tickets = chain(tickets, models.Ticket.objects.filter(user_id=following.followed_user))
         reviews = chain(reviews, models.Review.objects.filter(user_id=following.followed_user))
     tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda instance: instance.time_created, reverse=True)
+    paginator = Paginator(tickets_and_reviews, 4)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
     return render(request,
                   template_name='reviews/home.html',
-                  context={'tickets_and_reviews': tickets_and_reviews})
+                  context={'page': page})
 
 
 @login_required
@@ -33,9 +37,12 @@ def publications(request):
     tickets = models.Ticket.objects.filter(user_id=request.user.id)
     reviews = models.Review.objects.filter(user_id=request.user.id)
     tickets_and_reviews = sorted(chain(tickets, reviews), key=lambda instance: instance.time_created, reverse=True)
+    paginator = Paginator(tickets_and_reviews, 4)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
     return render(request,
                   template_name='reviews/publications.html',
-                  context={'tickets_and_reviews': tickets_and_reviews})
+                  context={'page': page})
 
 
 @method_decorator(login_required, name='dispatch')

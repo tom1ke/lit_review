@@ -4,7 +4,7 @@
 
     <h2>Vos publications</h2>
         <div class="content">
-            {% for instance in tickets_and_reviews %}
+            {% for instance in page %}
                {% if instance|model_type == 'Ticket' %}
                    {% include 'reviews/partials/ticket_snippet.html' with ticket=instance %}
                {% elif instance|model_type == 'Review' %}
@@ -12,5 +12,5 @@
                {% endif %}
             {% endfor %}
         </div>
-
+        {% include 'reviews/partials/paginator_snippet.html' %}
 {% endblock content %}

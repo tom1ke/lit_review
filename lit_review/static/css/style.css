@@ -19,6 +19,22 @@ body {
     padding: 0;
 }
 
+#paginator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px;
+    margin-bottom: 50px;
+}
+
+.page_arrow {
+    width: 30px;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 form {
     display: flex;
     flex-direction: column;
