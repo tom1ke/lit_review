@@ -10,7 +10,9 @@
 </head>
 <body>
     <div class="topbar">
-        <img id="logo" src="/static/lit_logo.png"/>
+        <a href="{% url 'home' %}">
+            <img id="logo" src="/static/lit_logo.png"/>
+        </a>
         <div class="menu">
             {% if user.is_authenticated %}
                 <a href="{% url 'home' %}">Flux</a>

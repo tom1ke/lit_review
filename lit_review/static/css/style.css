@@ -92,6 +92,7 @@ a:hover {
     justify-content: flex-end;
     align-items: center;
     gap: 15px;
+    font-weight: bold;
 }
 
 h2 {
