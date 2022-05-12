@@ -213,6 +213,10 @@ class FollowUser(View):
                     raise ValidationError('Vous suivez déjà cet utilisateur.') from error
             return redirect('follow')
         if 'unfollow_user' in request.POST and unfollow_form.is_valid():
-            pass
+            unfollow = request.POST['unfollow']
+            user_to_unfollow = user_model.objects.get(username=unfollow)
+            sub = models.UserFollows.objects.get(user_id=request.user.id, followed_user_id=user_to_unfollow.id)
+            sub.delete()
+            return redirect('follow')
         return render(request, self.template_name,
                       context={'follow_form': follow_form, 'unfollow_form': unfollow_form})

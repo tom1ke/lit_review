@@ -15,6 +15,7 @@
                 <form action="" method="post" id="unfollow_form">
                     {{ unfollow_form }}
                     {% csrf_token %}
+                    <input type="hidden" value="{{ user.followed_user }}" name="unfollow">
                     <button id="unfollow_button" type="submit">Ne plus suivre</button>
                 </form>
             </div>
