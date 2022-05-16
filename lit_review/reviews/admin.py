@@ -13,4 +13,3 @@ class ReviewAdmin(admin.ModelAdmin):
 admin.site.register(Ticket, TicketAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(UserFollows)
-

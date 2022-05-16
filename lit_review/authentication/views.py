@@ -21,6 +21,3 @@ class SignupPage(View):
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
         return render(request, self.template_name, context={'form': form})
-
-
-
