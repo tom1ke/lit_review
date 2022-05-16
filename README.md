@@ -9,14 +9,14 @@ Version : Python 3.10.1
 - Se positionner à la racine du projet via le terminal
 - Créer un environnement virtuel avec la commande
 
-> MacOS / Linux ```$ python3 -m venv env```
+  - MacOS / Linux ```$ python3 -m venv env```
 
-> Windows ```$ python -m venv env```
+  - Windows ```$ python -m venv env```
 - Activer l'environnement virtuel avec la commande
 
-> MacOS / Linux ```$ source env/bin/activate```
+  - MacOS / Linux ```$ source env/bin/activate```
 
-> Windows ```$ env\Scripts\activate```
+  - Windows ```$ env\Scripts\activate```
 - Installer les dépendances du projet avec la commande ```$ pip install -r requirements.txt```
 - Se positionner au niveau de projet Django via le terminal avec la commande ```$ cd lit_review```
 - Démarrer le serveur local avec la commande ```$ python manage.py runserver```
