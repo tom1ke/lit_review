@@ -5,7 +5,7 @@ Version : Python 3.10.1
 
 ## Paramétrage
 - Cloner ce dépôt de code avec la commande
-```$ git clone clone https://github.com/tom1ke/lit_review.git```
+```$ git clone https://github.com/tom1ke/lit_review.git```
 - Se positionner à la racine du projet via le terminal
 - Créer un environnement virtuel avec la commande
 
