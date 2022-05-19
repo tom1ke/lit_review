@@ -9,11 +9,11 @@ from . import forms
 class SignupPage(View):
     template_name = 'authentication/signup.html'
     form_class = forms.SignupForm
-    
+
     def get(self, request):
         form = self.form_class()
         return render(request, self.template_name, context={'form': form})
-    
+
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
